@@ -126,8 +126,10 @@
                     <img src="{{asset($setting->logo)}}" alt="{{$setting->site_name}}">
                 </a>
             </div>
-            <div class="mobile-menu-toggle">
-                <i class="fas fa-bars"></i>
+            <div class="mobile-header-actions">
+                <div class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
             </div>
         </div>
     </div>
@@ -161,6 +163,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const topHeader = document.querySelector(".top-header");
     const headerDesktop = document.querySelector(".top-header-desktop");
+    const mobileBottomNav = document.querySelector(".mobile-bottom-nav");
     let headerHeight = 0;
     
     if (topHeader) {
@@ -193,6 +196,10 @@ document.addEventListener("DOMContentLoaded", function () {
             fixedHeader.classList.remove('show');
         }
         
+        if (mobileBottomNav) {
+            mobileBottomNav.style.transform = 'translateY(0)';
+        }
+        
         lastScrollTop = scrollTop;
         ticking = false;
     }
@@ -206,5 +213,80 @@ document.addEventListener("DOMContentLoaded", function () {
             ticking = true;
         }
     });
+});
+</script>
+
+<div class="mobile-bottom-nav">
+    <div class="mobile-bottom-nav-container">
+        <div class="mobile-bottom-nav-items">
+
+            <div class="mobile-bottom-nav-item-wrapper">
+                <a href="#" class="mobile-bottom-nav-item">
+                    <div class="mobile-bottom-nav-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="mobile-bottom-nav-label">درخواست واردات کالا</div>
+                </a>
+            </div>
+
+            <div class="mobile-bottom-nav-item-wrapper">
+                <a href="#" class="mobile-bottom-nav-item">
+                    <div class="mobile-bottom-nav-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="mobile-bottom-nav-label">درخواست ترخیص کالا</div>
+                </a>
+            </div>
+
+            <div class="mobile-bottom-nav-item-wrapper">
+                <a href="#" class="mobile-bottom-nav-item">
+                    <div class="mobile-bottom-nav-icon">
+                        <i class="fas fa-globe-asia"></i>
+                    </div>
+                    <div class="mobile-bottom-nav-label">درخواست ترخیص در چین</div>
+                </a>
+            </div>
+            
+            <div class="mobile-bottom-nav-item-wrapper">
+                <a href="tel:{{$setting->mobile}}" class="mobile-bottom-nav-item call-button">
+                    <div class="mobile-bottom-nav-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="mobile-bottom-nav-label">تماس با ما</div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileBottomNav = document.querySelector('.mobile-bottom-nav');
+    
+    const originalHandleScroll = window.handleScroll;
+    window.handleScroll = function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const topHeader = document.querySelector(".top-header");
+        const headerDesktop = document.querySelector(".top-header-desktop");
+        const fixedHeader = document.querySelector(".header-fixed");
+        
+        let headerHeight = 0;
+        if (topHeader) headerHeight += topHeader.offsetHeight;
+        if (headerDesktop) headerHeight += headerDesktop.offsetHeight;
+        
+        // Handle fixed header
+        if (scrollTop > headerHeight && fixedHeader) {
+            fixedHeader.classList.add('show');
+        } else if (fixedHeader) {
+            fixedHeader.classList.remove('show');
+        }
+        
+        // Always keep mobile bottom nav visible
+        if (mobileBottomNav) {
+            mobileBottomNav.style.transform = 'translateY(0)';
+        }
+    };
 });
 </script>

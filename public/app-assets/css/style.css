@@ -1680,7 +1680,7 @@ button.navbar-toggler:focus {
         left: 20px;
     }
     .search-container button i {
-        font-size: 16px;
+        font-size: 14px !important;
     }
 }
 
@@ -1707,7 +1707,7 @@ button.navbar-toggler:focus {
         left: 15px;
     }
     .search-container button i {
-        font-size: 16px;
+        font-size: 14px !important;
     }
 }
 
@@ -4912,7 +4912,7 @@ html[dir="rtl"] .me-auto {
     justify-content: space-between;
     align-items: center;
     height: 100%;
-    padding: 5px 15px;
+    padding: 5px 0px;
 }
 
 .mobile-logo {
@@ -5631,4 +5631,33 @@ html[dir="rtl"] .me-auto {
         width: 24px;
         height: 24px;
     }
+}
+
+.mobile-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.mobile-call-button {
+    display: flex;
+    align-items: center;
+}
+
+.mobile-call-button .phone-number {
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.mobile-call-button .phone-number i {
+    color: #1e99e3;
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+
+.mobile-call-button .number,
+.mobile-call-button .area-code {
+    font-size: 14px;
 }
