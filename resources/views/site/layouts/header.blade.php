@@ -127,6 +127,13 @@
                 </a>
             </div>
             <div class="mobile-header-actions">
+                <div class="mobile-call-button">
+                    <a href="tel:{{$setting->mobile}}" class="phone-number">
+                        <i class="fas fa-phone-alt"></i>
+                        <span class="number IRANSans">{{str_replace('021-','',$setting->mobile)}}</span>
+                        <span class="area-code IRANSans">021</span>
+                    </a>
+                </div>
                 <div class="mobile-menu-toggle">
                     <i class="fas fa-bars"></i>
                 </div>
@@ -244,15 +251,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         <i class="fas fa-globe-asia"></i>
                     </div>
                     <div class="mobile-bottom-nav-label">درخواست ترخیص در چین</div>
-                </a>
-            </div>
-            
-            <div class="mobile-bottom-nav-item-wrapper">
-                <a href="tel:{{$setting->mobile}}" class="mobile-bottom-nav-item call-button">
-                    <div class="mobile-bottom-nav-icon">
-                        <i class="fas fa-phone-alt"></i>
-                    </div>
-                    <div class="mobile-bottom-nav-label">تماس با ما</div>
                 </a>
             </div>
 
