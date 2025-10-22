@@ -39,6 +39,14 @@
         const searchInput = $('#liveSearch');
         const searchResults = $('#searchResults');
         const searchLoading = $('#searchLoading');
+        
+        function updateSearchInputBorderRadius() {
+            if (searchResults.is(':visible') && searchResults.children().length > 0) {
+                searchInput.css('border-radius', '10px 10px 0 0');
+            } else {
+                searchInput.css('border-radius', '10px');
+            }
+        }
 
         searchInput.on('input', function() {
             clearTimeout(searchTimeout);
@@ -46,12 +54,14 @@
 
             if (query.length < 2) {
                 searchResults.hide();
+                updateSearchInputBorderRadius();
                 return;
             }
 
             // نمایش لودینگ
             searchResults.show();
             searchLoading.show();
+            updateSearchInputBorderRadius();
 
             searchTimeout = setTimeout(() => {
                 $.ajax({
@@ -61,10 +71,12 @@
                     success: function(response) {
                         searchLoading.hide();
                         displayResults(response.data);
+                        updateSearchInputBorderRadius();
                     },
                     error: function() {
                         searchLoading.hide();
                         searchResults.html('<div class="p-3 text-center">خطا در جستجو</div>');
+                        updateSearchInputBorderRadius();
                     }
                 });
             }, 300);
@@ -80,10 +92,12 @@
                     const resultHtml = `
                 <div class="search-result-item" onclick="window.location.href='${item.url}'">
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <div class="result-title">${item.title}</div>
+                      <div class="d-flex flex-column">
+                          <div class="result-title">${item.title}</div>
+                        <div class="result-description text-muted">${item.description}</div>
+                      </div>
                         <span class="search-badge ${item.type_class}">${item.type}</span>
                     </div>
-                    <div class="result-description text-muted">${item.description}</div>
                 </div>
             `;
                     searchResults.append(resultHtml);
@@ -94,6 +108,7 @@
         $(document).on('click', function(e) {
             if (!$(e.target).closest('.search-container').length) {
                 searchResults.hide();
+                updateSearchInputBorderRadius();
             }
         });
     });

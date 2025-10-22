@@ -126,8 +126,17 @@
                     <img src="{{asset($setting->logo)}}" alt="{{$setting->site_name}}">
                 </a>
             </div>
-            <div class="mobile-menu-toggle">
-                <i class="fas fa-bars"></i>
+            <div class="mobile-header-actions">
+                <div class="mobile-call-button">
+                    <a href="tel:{{$setting->mobile}}" class="phone-number">
+                        <i class="fas fa-phone-alt"></i>
+                        <span class="number IRANSans">{{str_replace('021-','',$setting->mobile)}}</span>
+                        <span class="area-code IRANSans">021</span>
+                    </a>
+                </div>
+                <div class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
             </div>
         </div>
     </div>
@@ -157,36 +166,149 @@
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const headerWrapper = document.querySelector(".header-wrapper");
-        const topHeaderDesktop = document.querySelector(".top-header-desktop");
-        const topHeader = document.querySelector(".top-header");
-        let lastScrollTop = 0;
-        let headerHeight = topHeader.offsetHeight;
 
-        // Clone headers for fixed version
-        const fixedHeaders = topHeader.cloneNode(true);
-        fixedHeaders.classList.add("header-fixed");
-        document.body.appendChild(fixedHeaders);
+document.addEventListener("DOMContentLoaded", function () {
+    const topHeader = document.querySelector(".top-header");
+    const headerDesktop = document.querySelector(".top-header-desktop");
+    const mobileBottomNav = document.querySelector(".mobile-bottom-nav");
+    let headerHeight = 0;
+    
+    if (topHeader) {
+        headerHeight += topHeader.offsetHeight;
+    }
+    if (headerDesktop) {
+        headerHeight += headerDesktop.offsetHeight;
+    }
+    
+    // Create a clone of the header for the fixed version
+    const fixedHeader = document.createElement('div');
+    fixedHeader.classList.add('header-fixed');
+    fixedHeader.innerHTML = topHeader.outerHTML;
+    document.body.appendChild(fixedHeader);
+    
+    // Calculate the actual header height
+    const actualHeaderHeight = headerHeight;
+    
+    let lastScrollTop = 0;
+    let ticking = false;
 
-        window.addEventListener("scroll", function () {
-            const scrollTop =
-                window.pageYOffset || document.documentElement.scrollTop;
+    function handleScroll() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > actualHeaderHeight) {
+            // Show fixed header with smooth transition
+            fixedHeader.classList.add('show');
+        } else {
+            // Hide fixed header
+            fixedHeader.classList.remove('show');
+        }
+        
+        if (mobileBottomNav) {
+            mobileBottomNav.style.transform = 'translateY(0)';
+        }
+        
+        lastScrollTop = scrollTop;
+        ticking = false;
+    }
 
-            // Show/hide fixed header based on scroll direction
-            if (scrollTop > headerHeight) {
-                // Scrolling down & past header
-                fixedHeaders.classList.add("show");
-                // Add padding only when fixed header is shown
-                document.body.style.paddingTop = headerHeight + "px";
-            } else {
-                // Scrolling up or at top
-                fixedHeaders.classList.remove("show");
-                // Remove padding when fixed header is hidden
-                document.body.style.paddingTop = "0";
-            }
-
-            lastScrollTop = scrollTop;
-        });
+    // Use requestAnimationFrame for better performance
+    window.addEventListener("scroll", function() {
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                handleScroll();
+            });
+            ticking = true;
+        }
     });
+});
+</script>
+
+<div class="mobile-bottom-nav">
+    <div class="mobile-bottom-nav-container">
+        <div class="mobile-bottom-nav-items">
+
+            <div class="mobile-bottom-nav-item-wrapper">
+                <a href="#" class="mobile-bottom-nav-item">
+                    <div class="mobile-bottom-nav-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="mobile-bottom-nav-label">درخواست واردات کالا</div>
+                </a>
+            </div>
+
+            <div class="mobile-bottom-nav-item-wrapper">
+                <a href="#" class="mobile-bottom-nav-item">
+                    <div class="mobile-bottom-nav-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="mobile-bottom-nav-label">درخواست ترخیص کالا</div>
+                </a>
+            </div>
+
+            <div class="mobile-bottom-nav-item-wrapper">
+                <a href="#" class="mobile-bottom-nav-item">
+                    <div class="mobile-bottom-nav-icon">
+                        <i class="fas fa-globe-asia"></i>
+                    </div>
+                    <div class="mobile-bottom-nav-label">درخواست ترخیص در چین</div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Floating Contact Icons -->
+<!-- WhatsApp on Right -->
+<div dir="ltr" class="floating-contact-icons right-icons">
+    <div class="icon-wrapper">
+        <span class="icon-label">تماس از طریق واتساپ</span>
+        <a href="https://wa.me/989024821759"
+           target="_blank"
+           class="floating-icon whatsapp-icon"
+           aria-label="تماس از طریق واتساپ">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+</div>
+
+<!-- Phone on Left -->
+<div dir="rtl" class="floating-contact-icons left-icons">
+    <div class="icon-wrapper">
+        <span class="icon-label">تماس تلفنی مستقیم</span>
+        <a href="tel:09024821759 "
+           class="floating-icon call-icon"
+           aria-label="تماس تلفنی">
+            <i class="fas fa-phone"></i>
+        </a>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileBottomNav = document.querySelector('.mobile-bottom-nav');
+    
+    const originalHandleScroll = window.handleScroll;
+    window.handleScroll = function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const topHeader = document.querySelector(".top-header");
+        const headerDesktop = document.querySelector(".top-header-desktop");
+        const fixedHeader = document.querySelector(".header-fixed");
+        
+        let headerHeight = 0;
+        if (topHeader) headerHeight += topHeader.offsetHeight;
+        if (headerDesktop) headerHeight += headerDesktop.offsetHeight;
+        
+        // Handle fixed header
+        if (scrollTop > headerHeight && fixedHeader) {
+            fixedHeader.classList.add('show');
+        } else if (fixedHeader) {
+            fixedHeader.classList.remove('show');
+        }
+        
+        // Always keep mobile bottom nav visible
+        if (mobileBottomNav) {
+            mobileBottomNav.style.transform = 'translateY(0)';
+        }
+    };
+});
 </script>

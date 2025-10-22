@@ -135,10 +135,14 @@
             height: 75px !important;
         }
 
+        .img-show-post img{
+            max-width: none !important;
+        }
+
     </style>
 @endsection
 @section('content')
-    <div class="site-breadcrumb">
+    <!-- <div class="site-breadcrumb">
         <div class="container">
             <h2 class="breadcrumb-title">وبلاگ</h2>
             <ul class="breadcrumb-menu">
@@ -149,10 +153,10 @@
         <div class="breadcrumb-shape">
             <img src="{{asset('app-assets/img/shape-4.svg')}}" alt="">
         </div>
-    </div>
+    </div> -->
 
 
-    <div class="blog-single-area pt-120 pb-120">
+    <div class="blog-single-area py-40">
         @if($banners && $banners->where('position',11)->first())
             <div class="container">
                 <a class="w-100" href="{{ $banners->where('position',11)->first()->url }}"
@@ -306,8 +310,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <aside class="sidebar">
-
+                    <aside class="fixed" id="sidebar">
                         <div class="widget category">
                             <h5 class="widget-title">دسته</h5>
                             <div class="category-list">
@@ -317,23 +320,6 @@
                                 @endforeach
                             </div>
                         </div>
-
-                        @if($latestPosts->count() > 0)
-                            <div class="widget recent-post">
-                                <h5 class="widget-title">پست اخیر</h5>
-                                @foreach($latestPosts as $item)
-                                    <div class="recent-post-single">
-                                        <div class="recent-post-img">
-                                            <img class="img-show-post" src="{{asset($item->image)}}" alt="{{$item->title}}">
-                                        </div>
-                                        <div class="recent-post-bio">
-                                            <h6><a href="{{route('blog.show',$item->slug)}}">{{$item->title}}</a></h6>
-                                            <span><i class="far fa-clock"></i>{{ jdate($item->published_at)->format('%d %B %Y') }}</span>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        @endif
 
                         @if($relatedPosts->count() > 0)
                         <div class="widget recent-post">
@@ -352,6 +338,24 @@
                         </div>
                         @endif
 
+                        @if($latestPosts->count() > 0)
+                            <div class="widget recent-post">
+                                <h5 class="widget-title">پست اخیر</h5>
+                                @foreach($latestPosts as $item)
+                                    <div class="recent-post-single">
+                                        <div class="recent-post-img">
+                                            <img class="img-show-post" src="{{asset($item->image)}}" alt="{{$item->title}}">
+                                        </div>
+                                        <div class="recent-post-bio">
+                                            <h6><a href="{{route('blog.show',$item->slug)}}">{{$item->title}}</a></h6>
+                                            <span><i class="far fa-clock"></i>{{ jdate($item->published_at)->format('%d %B %Y') }}</span>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+
+               
                     </aside>
                 </div>
             </div>
@@ -460,6 +464,59 @@
             </div>
         `;
             }
+            function setupFixedSidebar() {
+        const sidebar = $('#sidebar');
+        const sidebarParent = sidebar.parent();
+        const footer = $('footer');
+        const sidebarOffset = sidebarParent.offset().top;
+
+        function adjustSidebar() {
+            if ($(window).width() > 991) {
+                const scrollPos = $(window).scrollTop();
+                const sidebarHeight = sidebar.outerHeight();
+                const footerOffset = footer.length ? footer.offset().top : $(document).height();
+                const sidebarWidth = sidebarParent.width();
+                const maxFixedScroll = footerOffset - sidebarHeight -230;
+
+                if (scrollPos > maxFixedScroll) {
+                    const topValue = 90 - (scrollPos - maxFixedScroll);
+                    sidebar.css({
+                        'position': 'fixed',
+                        'top': topValue + 'px',
+                        'width': sidebarWidth + 'px'
+                    });
+                } else if (scrollPos > sidebarOffset - 90) {
+                    sidebar.css({
+                        'position': 'fixed',
+                        'top': '90px',
+                        'width': sidebarWidth + 'px'
+                    });
+                } else {
+                    sidebar.css({
+                        'position': 'static',
+                        'width': 'auto',
+                        'top': 'auto'
+                    });
+                }
+            } else {
+                sidebar.css({
+                    'position': 'relative',
+                });
+            }
+        }
+
+        adjustSidebar();
+
+        $(window).on('scroll', function () {
+            if ($(window).width() > 991) {
+                adjustSidebar();
+            }
         });
+
+        $(window).on('resize', adjustSidebar);
+    }
+
+    setupFixedSidebar();
+});
     </script>
 @endsection

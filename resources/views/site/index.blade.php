@@ -122,7 +122,7 @@
       }
 
       .hero-wrapper {
-        padding: 80px 0;
+        padding: 30px 0;
         overflow: hidden;
       }
 
@@ -345,40 +345,35 @@
                 </div>
             </div>
         </div>
-    </div>
-
-
-
-
-
-    <div class="contact-search">
-        <div class="search-box">
-            <div class="search-container">
-                <input
-                    type="text"
-                    id="liveSearch"
-                    placeholder="جستجو..."
-                    autocomplete="off"
-                />
-                <button type="button"><i class="fas fa-search"></i></button>
-                <div class="search-results" id="searchResults">
-                    <div class="search-loading" id="searchLoading">
-                        <div class="spinner"></div>
-                    </div>
-                </div>
+        <div class="contact-search">
+          <div class="search-box">
+          <div class="search-container">
+            <input
+              type="text"
+              id="liveSearch"
+              placeholder="جستجو..."
+              autocomplete="on"
+            />
+            <button type="button"><i class="fas fa-search"></i></button>
+            <div class="search-results" id="searchResults">
+              <div class="search-loading" id="searchLoading">
+                <div class="spinner"></div>
+              </div>
             </div>
-        </div>
     </div>
+          </div>
+        </div>
 
-    <div class="hero-curve">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200">
+        <div class="hero-curve">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200">
             <rect width="100%" height="100%" fill="#f9f9f9" />
             <path
-                fill="#fff"
-                fill-opacity="1"
-                d="M0,0L80,0C160,0,320,0,480,0C640,0,800,0,960,0C1120,0,1280,0,1360,0L1440,0L1440,200L1360,200C1280,200,1120,200,960,180C800,160,640,120,480,120C320,120,160,160,80,180L0,200Z"
+              fill="#fff"
+              fill-opacity="1"
+              d="M0,0L80,0C160,0,320,0,480,0C640,0,800,0,960,0C1120,0,1280,0,1360,0L1440,0L1440,200L1360,200C1280,200,1120,200,960,180C800,160,640,120,480,120C320,120,160,160,80,180L0,200Z"
             ></path>
-        </svg>
+          </svg>
+        </div>
     </div>
 
 
@@ -456,118 +451,134 @@
                 </a>
         </div>
     @endif
-    <div class="service-area bg py-120">
+    <div class="service-area bg">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-6 mx-auto">
-                <div class="site-heading text-center">
-                    <h2>همراه شما در مسیر تجارت جهانی</h2>
-                    <div class="heading-divider"></div>
-                    <p>
-                        ارائه خدمات جامع در زمینه واردات، صادرات و امور بازرگانی با بهترین کیفیت و مناسب‌ترین قیمت
-                    </p>
+    @foreach($serviceSupports as $key => $serviceSupport)
+        <div class="py-30">
+            <div class="container">
+                <div class="row gap-5 align-items-center">
+                    @if($key % 2 == 0)
+                        <div class="col-sm image-container">
+                            <figure class="image-frame">
+                                <img
+                                    class="img-fluid"
+                                    src="{{ asset($serviceSupport->image) }}"
+                                    alt="{{ $serviceSupport->title }}"
+                                />
+                            </figure>
+                        </div>
+                        <div class="col-sm">
+                            <div class="text-section">
+                                <div class="small-text">{{ $serviceSupport->small_title }}</div>
+                                <h4>{{ $serviceSupport->title }}</h4>
+                            </div>
+                            <div class="content">
+                                {!! $serviceSupport->description !!}
+                            </div>
+                            <div class="button-section">
+                                <a href="{{ $serviceSupport->url }}" class="btn">{{ $serviceSupport->button_text }}</a>
+                            </div>
+                        </div>
+                    @else
+                        <div class="col-sm">
+                            <div class="text-section">
+                                <div class="small-text">{{ $serviceSupport->small_title }}</div>
+                                <h4>{{ $serviceSupport->title }}</h4>
+                            </div>
+                            <div class="content">
+                                {!! $serviceSupport->description !!}
+                            </div>
+                            <div class="button-section">
+                                <a href="{{ $serviceSupport->url }}" class="btn">{{ $serviceSupport->button_text }}</a>
+                            </div>
+                        </div>
+                        <div class="col-sm image-container">
+                            <figure class="image-frame">
+                                <img
+                                    class="img-fluid"
+                                    src="{{ asset($serviceSupport->image) }}"
+                                    alt="{{ $serviceSupport->title }}"
+                                />
+                            </figure>
+                        </div>
+                    @endif
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            @foreach($services as $service)
-
-                <div class="col-md-6 col-lg-3">
-                    <div class="service-item h295px">
-                        <div class="service-icon">
-                            <i class="fas fa-briefcase"></i>
-                        </div>
-                        <h3 class="service-title">
-                            <a href="#">{{$service->title}}</a>
-                        </h3>
-                        <p class="service-text">
-                            {{mb_substr($service->summary,0,85).'...'}}
-                        </p>
-                        <div class="service-arrow">
-                            <a href="{{route('service.show',$service->id)}}" class="service-read-btn"> ثبت درخواست<i class="far fa-long-arrow-left"></i></a>
-                        </div>
                     </div>
                 </div>
             @endforeach
-
-
         </div>
     </div>
 </div>
 
-    <div class="skill-area py-120">
+<div class="process-area py-30">
         <div class="container">
-            <div class="skill-wrapper">
-                <div class="row g-5 align-items-center">
-                    <div class="col-lg-6 col-12">
-                        <div class="skill-right">
-                            <span class="site-title-tagline">چرا تاو 360؟</span>
-                            <h2 class="site-title">
-                                ما به شما <span>خدمات جامع بازرگانی</span> در سطح بین‌المللی
-                                ارائه می‌دهیم
-                            </h2>
-                            <p class="skill-details">
-                                با بیش از یک دهه تجربه در زمینه تجارت بین‌الملل و همکاری با
-                                معتبرترین شرکت‌های جهانی، ما مفتخریم که خدمات جامع بازرگانی
-                                را با بالاترین استانداردها به مشتریان خود ارائه می‌دهیم.
-                            </p>
-                            <div class="skills-section">
-                                <div class="progress-box">
-                                    <h5>رضایت مشتریان <span class="pull-right">۹۵٪</span></h5>
-                                    <div class="progress" data-value="95">
-                                        <div
-                                            class="progress-bar"
-                                            role="progressbar"
-                                            style="width: 95%"
-                                        ></div>
-                                    </div>
-                                </div>
-                                <div class="progress-box">
-                                    <h5>
-                                        سرعت ترخیص کالا <span class="pull-right">۸۸٪</span>
-                                    </h5>
-                                    <div class="progress" data-value="88">
-                                        <div
-                                            class="progress-bar"
-                                            role="progressbar"
-                                            style="width: 88%"
-                                        ></div>
-                                    </div>
-                                </div>
-                                <div class="progress-box">
-                                    <h5>
-                                        پوشش شبکه بین‌المللی <span class="pull-right">۹۲٪</span>
-                                    </h5>
-                                    <div class="progress" data-value="92">
-                                        <div
-                                            class="progress-bar"
-                                            role="progressbar"
-                                            style="width: 92%"
-                                        ></div>
-                                    </div>
-                                </div>
-                                <div class="progress-box">
-                                    <h5>
-                                        موفقیت در پروژه‌ها <span class="pull-right">۹۰٪</span>
-                                    </h5>
-                                    <div class="progress" data-value="90">
-                                        <div
-                                            class="progress-bar"
-                                            role="progressbar"
-                                            style="width: 90%"
-                                        ></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <div class="row">
+                <div class="col-lg-6 mx-auto">
+                    <div class="site-heading text-center">
+                <span class="site-title-tagline"
+                >فرآیند کاری <span>در تاو 360</span></span
+                >
+                        <h2 class="site-title">چگونه کار می‌کند</h2>
+                        <div class="heading-divider"></div>
+                        <p>
+                            این یک واقعیت است که خواننده توسط محتوای خواندنی یک صفحه هنگام
+                            نگاه به طرح‌بندی آن منحرف می‌شود.
+                        </p>
                     </div>
-                    <div class="col-lg-6 col-12">
-                        <div class="skill-left">
-                            <div class="skill-img">
-                                <img src="{{asset($images->where('position',2)->first()->image)}}" alt="تصویر ">
+                </div>
+            </div>
+            <div class="row justify-content-between">
+                <div class="col-lg-3 col-md-6 text-center mb-30">
+                    <a href="#" class="process-link">
+                        <div class="process-single">
+                            <div class="icon">
+                                <i class="fas fa-comments"></i>
+                                <!-- آیکون مشاوره -->
+                                <span>01</span>
                             </div>
+                            <h4>مشاوره اولیه</h4>
+                            <p>بررسی نیازها و ارائه راهکارهای مناسب</p>
                         </div>
-                    </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center mb-30">
+                    <a href="#" class="process-link">
+                        <div class="process-single">
+                            <div class="icon">
+                                <i class="fas fa-search-dollar"></i>
+                                <!-- آیکون سورسینگ و تحقیق قیمت -->
+                                <span>02</span>
+                            </div>
+                            <h4>سورسینگ</h4>
+                            <p>یافتن بهترین تامین‌کنندگان و مذاکره</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center mb-30">
+                    <a href="#" class="process-link">
+                        <div class="process-single">
+                            <div class="icon">
+                                <i class="fas fa-shipping-fast"></i>
+                                <!-- آیکون حمل و نقل سریع -->
+                                <span>03</span>
+                            </div>
+                            <h4>خرید و حمل</h4>
+                            <p>انجام فرآیند خرید و حمل بین‌المللی</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <a href="#" class="process-link">
+                        <div class="process-single">
+                            <div class="icon">
+                                <i class="fas fa-clipboard-check"></i>
+                                <!-- آیکون ترخیص و تحویل -->
+                                <span>04</span>
+                            </div>
+                            <h4>ترخیص و تحویل</h4>
+                            <p>ترخیص کالا از گمرک و تحویل به مشتری</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -611,7 +622,7 @@
         </div>
     </div>
 
-{{--    <div class="case-area py-120">--}}
+{{--    <div class="case-area py-60">--}}
 {{--        <div class="container">--}}
 {{--            <div class="row">--}}
 {{--                <div class="col-lg-6 mx-auto">--}}
@@ -695,137 +706,153 @@
     </div>
 </div>
     @endif
-
-
-    <div class="process-area py-120">
+    <div class="skill-area py-60">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6 mx-auto">
-                    <div class="site-heading text-center">
-                <span class="site-title-tagline"
-                >فرآیند کاری <span>در تاو 360</span></span
-                >
-                        <h2 class="site-title">چگونه کار می‌کند</h2>
-                        <div class="heading-divider"></div>
-                        <p>
-                            این یک واقعیت است که خواننده توسط محتوای خواندنی یک صفحه هنگام
-                            نگاه به طرح‌بندی آن منحرف می‌شود.
-                        </p>
+            <div class="skill-wrapper">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-6 col-12">
+                        <div class="skill-right">
+                            <span class="site-title-tagline">چرا تاو 360؟</span>
+                            <h2 class="site-title">
+                                ما به شما <span>خدمات جامع بازرگانی</span> در سطح بین‌المللی
+                                ارائه می‌دهیم
+                            </h2>
+                            <p class="skill-details">
+                                با بیش از یک دهه تجربه در زمینه تجارت بین‌الملل و همکاری با
+                                معتبرترین شرکت‌های جهانی، ما مفتخریم که خدمات جامع بازرگانی
+                                را با بالاترین استانداردها به مشتریان خود ارائه می‌دهیم.
+                            </p>
+                            <div class="skills-section">
+                                <div class="progress-box">
+                                    <h5>رضایت مشتریان <span class="pull-right">۹۵٪</span></h5>
+                                    <div class="progress" data-value="95">
+                                        <div
+                                            class="progress-bar"
+                                            role="progressbar"
+                                            style="width: 95%"
+                                        ></div>
+                                    </div>
+                                </div>
+                                <div class="progress-box">
+                                    <h5>
+                                        سرعت ترخیص کالا <span class="pull-right">۸۸٪</span>
+                                    </h5>
+                                    <div class="progress" data-value="88">
+                                        <div
+                                            class="progress-bar"
+                                            role="progressbar"
+                                            style="width: 88%"
+                                        ></div>
+                                    </div>
+                                </div>
+                                <div class="progress-box">
+                                    <h5>
+                                        پوشش شبکه بین‌المللی <span class="pull-right">۹۲٪</span>
+                                    </h5>
+                                    <div class="progress" data-value="92">
+                                        <div
+                                            class="progress-bar"
+                                            role="progressbar"
+                                            style="width: 92%"
+                                        ></div>
+                                    </div>
+                                </div>
+                                <div class="progress-box">
+                                    <h5>
+                                        موفقیت در پروژه‌ها <span class="pull-right">۹۰٪</span>
+                                    </h5>
+                                    <div class="progress" data-value="90">
+                                        <div
+                                            class="progress-bar"
+                                            role="progressbar"
+                                            style="width: 90%"
+                                        ></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="row justify-content-between">
-                <div class="col-lg-3 col-md-6 text-center mb-30">
-                    <a href="#" class="process-link">
-                        <div class="process-single">
-                            <div class="icon">
-                                <i class="fas fa-comments"></i>
-                                <!-- آیکون مشاوره -->
-                                <span>01</span>
+                    <div class="col-lg-6 col-12">
+                        <div class="skill-left">
+                            <div class="skill-img">
+                                <img src="{{asset($images->where('position',2)->first()->image)}}" alt="تصویر ">
                             </div>
-                            <h4>مشاوره اولیه</h4>
-                            <p>بررسی نیازها و ارائه راهکارهای مناسب</p>
                         </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6 text-center mb-30">
-                    <a href="#" class="process-link">
-                        <div class="process-single">
-                            <div class="icon">
-                                <i class="fas fa-search-dollar"></i>
-                                <!-- آیکون سورسینگ و تحقیق قیمت -->
-                                <span>02</span>
-                            </div>
-                            <h4>سورسینگ</h4>
-                            <p>یافتن بهترین تامین‌کنندگان و مذاکره</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6 text-center mb-30">
-                    <a href="#" class="process-link">
-                        <div class="process-single">
-                            <div class="icon">
-                                <i class="fas fa-shipping-fast"></i>
-                                <!-- آیکون حمل و نقل سریع -->
-                                <span>03</span>
-                            </div>
-                            <h4>خرید و حمل</h4>
-                            <p>انجام فرآیند خرید و حمل بین‌المللی</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6 text-center mb-30">
-                    <a href="#" class="process-link">
-                        <div class="process-single">
-                            <div class="icon">
-                                <i class="fas fa-clipboard-check"></i>
-                                <!-- آیکون ترخیص و تحویل -->
-                                <span>04</span>
-                            </div>
-                            <h4>ترخیص و تحویل</h4>
-                            <p>ترخیص کالا از گمرک و تحویل به مشتری</p>
-                        </div>
-                    </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    @foreach($serviceSupports as $key => $serviceSupport)
-        <div class="sections py-120">
-            <div class="container">
-                <div class="row gap-5 align-items-center">
-                    @if($key % 2 == 0)
-                        <div class="col-sm image-container">
-                            <figure class="image-frame">
-                                <img
-                                    class="img-fluid"
-                                    src="{{ asset($serviceSupport->image) }}"
-                                    alt="{{ $serviceSupport->title }}"
-                                />
-                            </figure>
+    <div class="faq-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="faq-left">
+                        <div class="site-heading mb-3 text-center">
+                            <h2 class="site-title"><span> واردات</span> در چهار مرحله
+                           </h2>
+                            <div class="heading-divider"></div>
                         </div>
-                        <div class="col-sm">
-                            <div class="text-section">
-                                <div class="small-text">{{ $serviceSupport->small_title }}</div>
-                                <h4>{{ $serviceSupport->title }}</h4>
-                            </div>
-                            <div class="content">
-                                {!! $serviceSupport->description !!}
-                            </div>
-                            <div class="button-section">
-                                <a href="{{ $serviceSupport->url }}" class="btn">{{ $serviceSupport->button_text }}</a>
-                            </div>
-                        </div>
-                    @else
-                        <div class="col-sm">
-                            <div class="text-section">
-                                <div class="small-text">{{ $serviceSupport->small_title }}</div>
-                                <h4>{{ $serviceSupport->title }}</h4>
-                            </div>
-                            <div class="content">
-                                {!! $serviceSupport->description !!}
-                            </div>
-                            <div class="button-section">
-                                <a href="{{ $serviceSupport->url }}" class="btn">{{ $serviceSupport->button_text }}</a>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="accordion w-100" id="homeFaqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faqHeading1">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="false" aria-controls="faqCollapse1">
+                                    <span><i class="far fa-file-alt"></i></span>چگونه می‌توانم سفارش واردات ثبت کنم؟
+                                </button>
+                            </h2>
+                            <div id="faqCollapse1" class="accordion-collapse collapse" aria-labelledby="faqHeading1" data-bs-parent="#homeFaqAccordion">
+                                <div class="accordion-body">
+                                    برای ثبت سفارش واردات، کافی است از طریق فرم تماس با ما یا شماره‌های درج شده با کارشناسان ما ارتباط برقرار کنید تا راهنمایی‌های لازم را دریافت نمایید.
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm image-container">
-                            <figure class="image-frame">
-                                <img
-                                    class="img-fluid"
-                                    src="{{ asset($serviceSupport->image) }}"
-                                    alt="{{ $serviceSupport->title }}"
-                                />
-                            </figure>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faqHeading2">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+                                    <span><i class="far fa-file-alt"></i></span>آیا خدمات مشاوره رایگان ارائه می‌دهید؟
+                                </button>
+                            </h2>
+                            <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faqHeading2" data-bs-parent="#homeFaqAccordion">
+                                <div class="accordion-body">
+                                    بله، مشاوره اولیه در زمینه واردات، صادرات و ترخیص کالا به صورت رایگان توسط تیم ما ارائه می‌شود.
+                                </div>
+                            </div>
                         </div>
-                    @endif
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faqHeading3">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+                                    <span><i class="far fa-file-alt"></i></span>مدت زمان ترخیص کالا چقدر است؟
+                                </button>
+                            </h2>
+                            <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHeading3" data-bs-parent="#homeFaqAccordion">
+                                <div class="accordion-body">
+                                    مدت زمان ترخیص کالا بسته به نوع کالا و گمرک مقصد متفاوت است، اما تیم ما تلاش می‌کند در کوتاه‌ترین زمان ممکن فرآیند ترخیص را انجام دهد.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faqHeading4">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
+                                    <span><i class="far fa-file-alt"></i></span>آیا امکان پیگیری وضعیت سفارش وجود دارد؟
+                                </button>
+                            </h2>
+                            <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faqHeading4" data-bs-parent="#homeFaqAccordion">
+                                <div class="accordion-body">
+                                    بله، پس از ثبت سفارش، می‌توانید در هر مرحله از طریق کارشناسان ما وضعیت سفارش خود را پیگیری نمایید.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    @endforeach
+    </div>
 
-    <div class="blog-area py-120">
+    <div class="blog-area py-60">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mx-auto">
