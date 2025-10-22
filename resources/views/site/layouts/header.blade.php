@@ -257,7 +257,31 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
     </div>
 </div>
+<!-- Floating Contact Icons -->
+<!-- WhatsApp on Right -->
+<div dir="ltr" class="floating-contact-icons right-icons">
+    <div class="icon-wrapper">
+        <span class="icon-label">تماس از طریق واتساپ</span>
+        <a href="https://wa.me/989024821759"
+           target="_blank"
+           class="floating-icon whatsapp-icon"
+           aria-label="تماس از طریق واتساپ">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+</div>
 
+<!-- Phone on Left -->
+<div dir="rtl" class="floating-contact-icons left-icons">
+    <div class="icon-wrapper">
+        <span class="icon-label">تماس تلفنی مستقیم</span>
+        <a href="tel:09024821759 "
+           class="floating-icon call-icon"
+           aria-label="تماس تلفنی">
+            <i class="fas fa-phone"></i>
+        </a>
+    </div>
+</div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

@@ -5661,3 +5661,191 @@ html[dir="rtl"] .me-auto {
 .mobile-call-button .area-code {
     font-size: 14px;
 }
+
+/* Base Container */
+.floating-contact-icons {
+    position: fixed;
+    bottom: 30px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* One on Right, One on Left */
+.right-icons {
+    right: 30px;
+    align-items: flex-end;
+}
+
+.left-icons {
+    left: 30px;
+    align-items: flex-start;
+}
+
+/* Icon Wrapper */
+.icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: slideIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) backwards;
+}
+
+/* Animation Direction */
+.right-icons .icon-wrapper {
+    animation-name: slideInRight;
+}
+.left-icons .icon-wrapper {
+    animation-name: slideInLeft;
+}
+
+/* Icon Label */
+.icon-label {
+    background: #fff;
+    color: #000;
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+/* Show label on hover */
+.icon-wrapper:hover .icon-label {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Floating Icon */
+.floating-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white !important;
+    font-size: 26px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Hover State */
+.floating-icon:hover {
+    transform: scale(1.15) rotate(5deg);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+}
+
+.floating-icon:active {
+    transform: scale(1.05);
+}
+
+/* WhatsApp Icon Styling */
+.whatsapp-icon {
+    background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+    border: 3px solid #25d366;
+}
+
+.whatsapp-icon:hover {
+    background: linear-gradient(135deg, #2ee873 0%, #149e8c 100%);
+}
+
+/* Phone Icon Styling */
+.call-icon {
+    background: linear-gradient(135deg, #1e99e6 0%, #0d7abf 100%);
+    border: 3px solid #1e99e6;
+    font-size: 24px;
+}
+
+.call-icon:hover {
+    background: linear-gradient(135deg, #2ba8f5 0%, #1088d4 100%);
+}
+
+/* Icon Animation on Load */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px) rotate(20deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) rotate(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px) rotate(-20deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) rotate(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 991px) {
+    .floating-contact-icons {
+        bottom: 100px;
+    }
+
+    .floating-icon {
+        width: 55px;
+        height: 55px;
+        font-size: 24px;
+    }
+
+    .icon-label {
+        font-size: 13px;
+        padding: 8px 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .floating-contact-icons {
+        bottom: 90px;
+    }
+
+    .floating-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 22px;
+    }
+
+    .icon-label {
+        font-size: 12px;
+        padding: 7px 12px;
+    }
+
+    .icon-wrapper {
+        gap: 10px;
+    }
+}
+
+/* Optional Demo Styling (for testing layout) */
+.demo-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+    padding: 40px 20px;
+}
+
+.demo-content h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.demo-content p {
+    font-size: 18px;
+    opacity: 0.9;
+    line-height: 1.6;
+}

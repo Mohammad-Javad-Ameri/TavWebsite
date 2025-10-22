@@ -50,7 +50,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
-                                    <label for="invoice_attachment" class="form-label">پرفرما اینویس <span style="color: red;">*</span></label>
+                                    <label for="invoice_attachment" class="form-label">پیش فاکتور<span style="color: red;">*</span></label>
                                     <input type="file" class="form-control" id="invoice_attachment" name="invoice_attachment" required>
                                 </div>
                             </div>
